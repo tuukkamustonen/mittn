@@ -5,6 +5,7 @@ Copyright (c) 2014 F-Secure
 See LICENSE for details
 """
 
+from __future__ import absolute_import
 from mittn.httpfuzzer.httptools import *
 from mittn.httpfuzzer.dictwalker import *
 from mittn.httpfuzzer.posttools import *

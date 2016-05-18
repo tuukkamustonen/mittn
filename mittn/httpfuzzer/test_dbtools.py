@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 import unittest
 import tempfile
 import uuid
@@ -7,6 +8,7 @@ import socket
 import mittn.httpfuzzer.dbtools as dbtools
 import sqlalchemy
 from sqlalchemy import create_engine, Table, Column, MetaData, exc, types
+import six
 
 
 class dbtools_test_case(unittest.TestCase):
@@ -80,7 +82,7 @@ class dbtools_test_case(unittest.TestCase):
         db_select = sqlalchemy.sql.select([httpfuzzer_issues])
         db_result = dbconn.execute(db_select)
         result = db_result.fetchone()
-        for key, value in response.iteritems():
+        for key, value in six.iteritems(response):
             self.assertEqual(result[key], value,
                              '%s not found in database after add' % key)
         self.assertEqual(result['test_runner_host'], socket.gethostbyname(socket.getfqdn()),

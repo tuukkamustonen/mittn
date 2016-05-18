@@ -5,6 +5,7 @@ Copyright (c) 2014 F-Secure
 See LICENSE for details
 """
 
+from __future__ import absolute_import
 import os
 import socket  # For getting hostname where we're running on
 from sqlalchemy import create_engine, Table, Column, MetaData, exc, types

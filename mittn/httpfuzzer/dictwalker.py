@@ -19,7 +19,10 @@ Copyright (c) 2014 F-Secure
 See LICENSE for details
 """
 
+from __future__ import absolute_import
 import copy
+import six
+from six.moves import range
 
 
 def anomaly_dict_generator_static(static_anomalies_list):
@@ -48,7 +51,7 @@ def anomaly_dict_generator_fuzz(fuzzed_anomalies_dict):
     while True:
         data = {}
         for key in fuzzed_anomalies_dict.keys():
-            data[key] = fuzzcase[key].next()
+            data[key] = next(fuzzcase[key])
         yield data
 
 
@@ -100,7 +103,7 @@ def dictwalk(branch, anomaly_dict, anomaly_key=None):
                 fuzzed_branch.append(fuzzdict)
         return fuzzed_branch
     # A leaf node; return just a list of anomalies for a value
-    if isinstance(branch, (int, str, unicode, float)) or branch in (
+    if isinstance(branch, (int, str, six.text_type, float)) or branch in (
     True, False, None):
         # Get the anomaly to be injected from the anomaly_dict.
         anomaly = anomaly_dict.get(anomaly_key)

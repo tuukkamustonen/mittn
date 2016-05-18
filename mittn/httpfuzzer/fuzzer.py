@@ -2,10 +2,13 @@
 strings from objects, run a fuzzer over them, and return them in a dict
 that can be passed on to the injector."""
 
+from __future__ import absolute_import
 import tempfile
 import os
 import subprocess
 import shutil
+import six
+from six.moves import range
 
 """
 Copyright (c) 2012-2014 F-Secure
@@ -36,7 +39,7 @@ def collect_values(branch, valid_values, anomaly_key=None):
             collect_values(branch[i], valid_values, anomaly_key)
     # If we see an actual value, we will add the value under both the
     # current key and the "None" key
-    if isinstance(branch, (int, str, unicode, float)) or branch in (
+    if isinstance(branch, (int, str, six.text_type, float)) or branch in (
             True, False, None):
         valid_values[anomaly_key].append(branch)
         valid_values[None].append(branch)
@@ -82,7 +85,7 @@ def get_fuzz(valuelist, no_of_fuzzcases, radamsacmd):
             # Radamsa only operates on strings, so make numbers and booleans
             # into strings. (No, this won't fuzz effectively, use static
             # injection to cover those cases.)
-            if isinstance(valid_string, (bool, int, long, float)):
+            if isinstance(valid_string, (bool, float) + six.integer_types):
                 valid_string = str(valid_string)
             filehandle.write(bytearray(valid_string, "UTF-8"))
 

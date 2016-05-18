@@ -5,6 +5,7 @@ Copyright (c) 2014 F-Secure
 See LICENSE for details
 """
 
+from __future__ import absolute_import
 import urllib
 import json
 

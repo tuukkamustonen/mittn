@@ -7,6 +7,7 @@ See LICENSE for details
 Burp and Burp Suite are trademarks of Portswigger, Ltd.
 """
 
+from __future__ import absolute_import
 from behave import *
 import shlex
 import subprocess

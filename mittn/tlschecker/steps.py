@@ -5,6 +5,7 @@ Copyright (c) 2013-2014 F-Secure
 See LICENSE for details
 """
 
+from __future__ import absolute_import
 from behave import *
 from subprocess import check_output
 from tempfile import NamedTemporaryFile

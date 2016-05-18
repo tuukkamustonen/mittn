@@ -5,7 +5,9 @@ Copyright (c) 2014 F-Secure
 See LICENSE for details
 """
 
+from __future__ import absolute_import
 import re
+from six.moves import range
 
 
 def unpack_integer_range(integerrange):
@@ -45,7 +47,7 @@ def unpack_integer_range(integerrange):
                 assert False, "Number range %s in the feature file is " \
                               "invalid. Range minimum is more than " \
                               "maximum" % integerrange
-            integers.extend(range(rangemin, rangemax))
+            integers.extend(list(range(rangemin, rangemax)))
         else:  # Range specifier was not of the form x-y
             assert False, "Number range %s in the feature file is invalid. " \
                           "Incorrect range specifier" % \

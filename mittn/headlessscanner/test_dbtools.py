@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 import unittest
 import tempfile
 import uuid
@@ -8,6 +9,7 @@ import socket
 import json
 import sqlalchemy
 from sqlalchemy import create_engine, Table, Column, MetaData, exc, types
+import six
 
 
 class dbtools_test_case(unittest.TestCase):
@@ -77,7 +79,7 @@ class dbtools_test_case(unittest.TestCase):
         db_select = sqlalchemy.sql.select([headlessscanner_issues])
         db_result = dbconn.execute(db_select)
         result = db_result.fetchone()
-        for key, value in issue.iteritems():
+        for key, value in six.iteritems(issue):
             if key == 'messages':
                 self.assertEqual(result[key], json.dumps(value))
             else:
