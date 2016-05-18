@@ -7,7 +7,10 @@ setup(
     description='Mittn',
     long_description=open('README.txt').read(),
     classifiers=[
-          "Programming Language :: Python :: 2.7"
+        'Operating System :: POSIX :: Linux',
+        'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3.4',
+        'License :: OSI Approved :: Apache Software License'
     ],
     license='Apache License 2.0',
     author='F-Secure Corporation',
