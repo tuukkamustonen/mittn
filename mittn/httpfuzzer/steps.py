@@ -14,9 +14,9 @@ from mittn.httpfuzzer.number_ranges import *
 from mittn.httpfuzzer.url_params import *
 import mittn.httpfuzzer.dbtools as fuzzdb
 import json
-import urlparse2
 import subprocess
 import re
+from six.moves.urllib import parse
 
 
 @given(u'a baseline database for injection findings')
@@ -112,7 +112,7 @@ def step_impl(context, submission, method):
     # Unserialise into a data structure and store in a list
     # (one valid case is just a special case of providing
     # several valid cases)
-    context.submission = [urlparse2.parse_qs(submission)]
+    context.submission = [parse.parse_qs(submission)]
     context.submission_method = method
     context.type = 'urlencode'  # Used downstream for selecting encoding
     context.content_type = 'application/x-www-form-urlencoded; charset=utf-8'
@@ -288,7 +288,7 @@ def step_impl(context, method):
     context.content_type = 'application/x-www-form-urlencoded; charset=utf-8'
     # Add all valid cases into a list as unserialised data structures
     for row in context.table:
-        context.submission.append(urlparse2.parse_qs(row['submission']))
+        context.submission.append(parse.parse_qs(row['submission']))
     test_valid_submission(context)
     assert True
 
