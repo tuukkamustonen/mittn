@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 import codecs
 import copy
 import datetime
@@ -83,14 +84,14 @@ class Issue(BaseModel):
         if isinstance(resp_or_exc, RequestException):
             e = resp_or_exc
             if e.request:
-                issue.req_headers = json.dumps(dict(e.request.headers))
-                issue.req_body = str(e.request.body)
+                issue.req_headers = str(e.request.headers)
+                issue.req_body = e.request.body
                 issue.url = e.request.url
                 issue.req_method = e.request.method
             if e.response:
                 issue.resp_statuscode = e.response.status_code
-                issue.resp_headers = json.dumps(dict(e.response.headers))
-                issue.resp_body = str(e.response.text)
+                issue.resp_headers = str(e.response.headers)
+                issue.resp_body = e.response.text
                 issue.resp_history = str(e.response.history)
 
             if isinstance(e, Timeout):
@@ -100,13 +101,13 @@ class Issue(BaseModel):
 
         elif isinstance(resp_or_exc, Response):
             resp = resp_or_exc
-            issue.req_headers = json.dumps(dict(resp.request.headers))
-            issue.req_body = str(resp.request.body)
+            issue.req_headers = str(resp.request.headers)
+            issue.req_body = resp.request.body
             issue.url = resp.request.url
             issue.req_method = resp.request.method
             issue.resp_statuscode = resp.status_code
-            issue.resp_headers = json.dumps(dict(resp.headers))
-            issue.resp_body = str(resp.text)
+            issue.resp_headers = str(resp.headers)
+            issue.resp_body = resp.text
             issue.resp_history = str(resp.history)
 
             if hasattr(resp, 'server_error_text_matched'):  # Hacky!
@@ -292,7 +293,7 @@ class PythonRadamsa(object):
             for filename in os.listdir(fuzz_case_directory):
                 # XXX: Radamsa produces even broken bytearrays, so we need to read contents as bytestr!
                 # FIXME: Python 3?
-                with open(os.path.join(fuzz_case_directory, filename), 'r') as fh:
+                with open(os.path.join(fuzz_case_directory, filename), 'rb') as fh:
                     fuzzlist.append(fh.read())
 
         finally:

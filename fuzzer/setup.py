@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 from setuptools import setup, find_packages
 
 
@@ -7,8 +8,10 @@ setup(
     description='Mittn Fuzzer',
     long_description='',
     classifiers=[
-          "Programming Language :: Python :: 2.7"
-          "Programming Language :: Python :: 3.4"
+        'Operating System :: POSIX :: Linux',
+        'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3.4',
+        'License :: OSI Approved :: Apache Software License'
     ],
     license='Apache License 2.0',
     author='F-Secure Corporation',
