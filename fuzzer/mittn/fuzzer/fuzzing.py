@@ -195,10 +195,9 @@ class Archiver(object):
                 "status = {issue.resp_statuscode}",
                 "URL = {url}",
                 "req_method = {issue.req_method}",
-                "submission = {submission}".format(
+                "submission = {submission}"]).format(
                     issue=issue, url=issue.url, submission=issue.req_body
                 )
-            ])
 
         # Add the finding into the database
         self.session.add(issue)
