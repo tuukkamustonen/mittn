@@ -189,15 +189,21 @@ class Archiver(object):
         if self.session is None:
             assert False, '\n'.join([
                 "Response from server failed a check, and no errors database is in use.",
-                "Scenario id = {issue.scenario_id}",
-                "error = {issue.server_protocol_error}",
-                "timeout = {issue.server_timeout}",
-                "status = {issue.resp_statuscode}",
-                "URL = {url}",
-                "req_method = {issue.req_method}",
-                "submission = {submission}"]).format(
-                    issue=issue, url=issue.url, submission=issue.req_body
-                )
+                "Scenario = {issue.scenario_id}",
+                "Request:",
+                "    url = {issue.url}",
+                "    method = {issue.req_method}",
+                "    headers = {issue.req_headers}",
+                "    body = {issue.req_body}",
+                "Reason:",
+                "    error = {issue.server_protocol_error}",
+                "    timeout = {issue.server_timeout}",
+                "Response:",
+                "    status = {issue.resp_statuscode}",
+                "    headers = {issue.resp_headers}",
+                "    body = {issue.resp_body}",
+                "    history = {issue.resp_history}"
+            ]).format(issue=issue)
 
         # Add the finding into the database
         self.session.add(issue)
